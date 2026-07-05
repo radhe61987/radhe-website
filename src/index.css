@@ -46,14 +46,25 @@
 
 /* Print flyer styles */
 @media print {
-  /* Hide default screen layouts entirely */
-  #salon-app-root,
+  /* Reset app root during print so descendants can be shown */
+  #salon-app-root {
+    background: transparent !important;
+    background-image: none !important;
+    padding: 0 !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* Hide specific screen-only containers */
+  #flyer-page-header,
+  #flyer-main-content,
+  #flyer-page-footer,
   header,
   footer,
   main,
   button,
-  .fixed,
-  .absolute {
+  .print\:hidden {
     display: none !important;
   }
 
@@ -61,15 +72,13 @@
   #printable-flyer {
     display: block !important;
     visibility: visible !important;
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
+    position: relative !important;
+    margin: 0 auto !important;
+    width: 8.5in !important;
+    height: 11in !important;
     max-width: 8.5in !important;
     max-height: 11in !important;
-    margin: 0 auto !important;
-    padding: 2rem !important;
+    padding: 1.5in !important;
     background: white !important;
     color: #1c1917 !important;
     box-shadow: none !important;
@@ -91,7 +100,7 @@
 
   @page {
     size: letter portrait;
-    margin: 0.4in;
+    margin: 0;
   }
 }
 

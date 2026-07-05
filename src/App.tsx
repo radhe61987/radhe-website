@@ -2,14 +2,42 @@ import React from 'react';
 import DigitalFlyerCard from './components/DigitalFlyerCard';
 import PrintableFlyer from './components/PrintableFlyer';
 import salonData from './salon-info.json';
-import { Sparkles, Phone, Printer, Heart, Sparkle } from 'lucide-react';
+import { Phone, Printer, Heart, Sparkle, Download, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function App() {
   const { salonInfo } = salonData;
+  const [isDownloading, setIsDownloading] = React.useState(false);
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownloadPng = async () => {
+    const node = document.getElementById('digital-flyer-one-side');
+    if (!node) return;
+
+    try {
+      setIsDownloading(true);
+      const { toPng } = await import('html-to-image');
+      const dataUrl = await toPng(node, {
+        backgroundColor: '#FAF8F5',
+        style: {
+          transform: 'scale(1)',
+          borderRadius: '0px',
+        },
+        pixelRatio: 3, // Ultra-sharp high resolution
+      });
+
+      const link = document.createElement('a');
+      link.download = `${salonInfo.name.toLowerCase().replace(/\s+/g, '-')}-digital-flyer.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error('Failed to generate flyer image:', error);
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -61,23 +89,40 @@ export default function App() {
           </motion.div>
 
           {/* Call to Action Bar below the flyer */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-2 w-full max-w-[420px]" id="flyer-quick-actions">
+          <div className="flex flex-col gap-3 mt-3 w-full max-w-[420px]" id="flyer-quick-actions">
             <a 
               href={`tel:${salonInfo.contact}`}
-              className="flex-1 bg-[#8C7355] text-white py-3 px-4 rounded-xs text-xs uppercase tracking-widest font-bold text-center hover:bg-[#725D43] transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer"
+              className="w-full bg-[#8C7355] text-white py-3 px-4 rounded-sm text-xs uppercase tracking-[0.15em] font-extrabold text-center hover:bg-[#725D43] transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer"
               id="cta-call"
             >
-              <Phone className="h-4 w-4 animate-bounce" />
-              <span>Call / Text to Book</span>
+              <Phone className="h-4 w-4 animate-pulse text-[#FAF8F5]" />
+              <span>Call / Text to Book ({salonInfo.contactFormatted})</span>
             </a>
-            <button 
-              onClick={handlePrint}
-              className="flex-1 bg-white border border-stone-300 text-stone-700 py-3 px-4 rounded-xs text-xs uppercase tracking-widest font-bold text-center hover:bg-stone-50 hover:text-stone-900 transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
-              id="cta-print"
-            >
-              <Printer className="h-4 w-4" />
-              <span>Download & Print</span>
-            </button>
+            
+            <div className="grid grid-cols-2 gap-3">
+              <button 
+                onClick={handleDownloadPng}
+                disabled={isDownloading}
+                className="bg-white border border-stone-300 text-stone-700 py-3 px-2 rounded-sm text-[10px] sm:text-xs uppercase tracking-widest font-bold text-center hover:bg-stone-50 hover:text-stone-900 transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+                id="cta-download-png"
+              >
+                {isDownloading ? (
+                  <Loader2 className="h-4 w-4 animate-spin text-[#8C7355]" />
+                ) : (
+                  <Download className="h-4 w-4 text-[#8C7355]" />
+                )}
+                <span>{isDownloading ? 'Saving...' : 'Download PNG'}</span>
+              </button>
+              
+              <button 
+                onClick={handlePrint}
+                className="bg-white border border-stone-300 text-stone-700 py-3 px-2 rounded-sm text-[10px] sm:text-xs uppercase tracking-widest font-bold text-center hover:bg-stone-50 hover:text-stone-900 transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                id="cta-print"
+              >
+                <Printer className="h-4 w-4 text-[#8C7355]" />
+                <span>Print / PDF</span>
+              </button>
+            </div>
           </div>
 
         </div>

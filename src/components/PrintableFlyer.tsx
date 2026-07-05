@@ -1,6 +1,39 @@
 import React from 'react';
 import salonData from '../salon-info.json';
-import { Phone, Sparkles, CheckCircle, ShieldCheck } from 'lucide-react';
+import { 
+  Phone, 
+  Eye, 
+  Smile, 
+  User, 
+  Sparkle, 
+  Sparkles, 
+  Flower, 
+  Scissors, 
+  Gem 
+} from 'lucide-react';
+
+const getServiceIcon = (id: string, className?: string) => {
+  switch (id) {
+    case 'eyebrow-threading':
+      return <Eye className={className} />;
+    case 'upper-lips':
+      return <Smile className={className} />;
+    case 'full-face':
+      return <User className={className} />;
+    case 'arms-wax':
+    case 'legs-wax':
+    case 'under-arms':
+      return <Sparkle className={className} />;
+    case 'henna-tattoo':
+      return <Flower className={className} />;
+    case 'hair-tinsel':
+      return <Sparkles className={className} />;
+    case 'facial':
+      return <Gem className={className} />;
+    default:
+      return <Sparkle className={className} />;
+  }
+};
 
 export default function PrintableFlyer() {
   const { salonInfo, services } = salonData;
@@ -27,32 +60,24 @@ export default function PrintableFlyer() {
 
       {/* Header Section */}
       <div className="text-center mb-8 pt-6 border-b pb-6 border-current/10" id="flyer-header">
-        <div className="flex justify-center items-center gap-2 mb-1.5">
-          <Sparkles className={`h-5 w-5 ${accentText}`} />
-          <span className={`text-[11px] uppercase tracking-[0.25em] font-bold ${softLabelColor}`}>Professional Aesthetics</span>
-          <Sparkles className={`h-5 w-5 ${accentText}`} />
+        <div className="flex justify-center items-center gap-2.5 mb-2">
+          <Sparkle className={`h-4 w-4 ${accentText} opacity-60`} />
+          <Flower className={`h-6 w-6 ${accentText} opacity-80`} />
+          <Sparkle className={`h-4 w-4 ${accentText} opacity-60`} />
         </div>
-        
-        <h1 className="font-serif text-4xl sm:text-5xl font-extrabold tracking-[0.05em] uppercase leading-none mt-2">
+        <h1 className="font-serif text-4xl sm:text-5xl font-extrabold tracking-[0.05em] uppercase leading-none">
           {salonInfo.name}
         </h1>
-        <p className="font-serif italic text-sm mt-2 opacity-90 text-stone-700">
-          {salonInfo.subtitle}
-        </p>
 
         {/* Quick Contacts Panel */}
-        <div className="mt-6 grid grid-cols-3 gap-2 border-t border-current/10 pt-5 text-[10px] uppercase tracking-[0.1em] font-semibold" id="flyer-quick-contacts">
+        <div className="mt-6 grid grid-cols-2 gap-4 border-t border-current/10 pt-5 text-[10px] uppercase tracking-[0.1em] font-semibold" id="flyer-quick-contacts">
           <div className="flex flex-col items-center justify-center border-r border-current/10">
             <span className={`${softLabelColor} text-[8px] tracking-[0.15em] mb-0.5`}>Call or Text</span>
             <span className="font-bold text-xs">{salonInfo.contactFormatted}</span>
           </div>
-          <div className="flex flex-col items-center justify-center border-r border-current/10 px-1">
-            <span className={`${softLabelColor} text-[8px] tracking-[0.15em] mb-0.5`}>Serving Communities</span>
-            <span className="truncate font-semibold">{salonInfo.servingAreas.slice(0, 4).join(' • ')}</span>
-          </div>
           <div className="flex flex-col items-center justify-center">
-            <span className={`${softLabelColor} text-[8px] tracking-[0.15em] mb-0.5`}>Appointment Schedule</span>
-            <span className={`${accentText} font-bold`}>{salonInfo.hours}</span>
+            <span className={`${softLabelColor} text-[8px] tracking-[0.15em] mb-0.5`}>Serving Communities</span>
+            <span className="font-semibold text-center">{salonInfo.servingAreas.slice(0, 4).join(' • ')}</span>
           </div>
         </div>
       </div>
@@ -65,11 +90,11 @@ export default function PrintableFlyer() {
         </div>
         
         <div className="grid grid-cols-1 gap-4 pt-2">
-          {services.map((srv, idx) => (
-            <div key={srv.id} className="flex justify-between items-baseline text-sm font-semibold" id={`flyer-srv-${srv.id}`}>
-              <div className="flex items-center gap-2">
-                <span className={`text-[10px] font-serif font-bold ${accentText} opacity-75`}>
-                  {(idx + 1).toString().padStart(2, '0')}
+          {services.map((srv) => (
+            <div key={srv.id} className="flex justify-between items-center text-sm font-semibold" id={`flyer-srv-${srv.id}`}>
+              <div className="flex items-center gap-3">
+                <span className={`${accentText} opacity-85 flex-shrink-0`}>
+                  {getServiceIcon(srv.id, "h-5 w-5")}
                 </span>
                 <span className="uppercase tracking-wider">{srv.name}</span>
               </div>
