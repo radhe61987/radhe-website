@@ -1,0 +1,66 @@
+{
+  "salonInfo": {
+    "name": "Radhe Beauty",
+    "contact": "540-394-5433",
+    "contactFormatted": "540.394.5433",
+    "hours": "Open Daily 9:00 AM – 7:30 PM",
+    "subtitle": "Precision Eyebrow Threading, Waxing, Henna & Skincare",
+    "servingAreas": [
+      "Ashburn",
+      "Aldie",
+      "Sterling",
+      "Chantilly",
+      "Herndon"
+    ],
+    "about": "Welcome to Radhe Beauty, Northern Virginia’s premier destination for threading, waxing, custom henna tattoo, hair tinsel, and professional facials. We take pride in delivering precise, customized services to highlight your natural elegance. Our trained experts are committed to standard-setting precision, comfort, and care."
+  },
+  "services": [
+    {
+      "id": "eyebrow-threading",
+      "name": "Eyebrow Threading",
+      "price": "8"
+    },
+    {
+      "id": "upper-lips",
+      "name": "Upper Lips Threading",
+      "price": "2"
+    },
+    {
+      "id": "full-face",
+      "name": "Full Face Threading",
+      "price": "25"
+    },
+    {
+      "id": "arms-wax",
+      "name": "Arms Waxing",
+      "price": "20"
+    },
+    {
+      "id": "legs-wax",
+      "name": "Legs Waxing",
+      "price": "25"
+    },
+    {
+      "id": "under-arms",
+      "name": "Under Arms Waxing",
+      "price": "10"
+    },
+    {
+      "id": "henna-tattoo",
+      "name": "Intricate Henna Tattoo",
+      "price": "15",
+      "hasPlus": true
+    },
+    {
+      "id": "hair-tinsel",
+      "name": "Sparkling Hair Tinsel",
+      "price": "5",
+      "hasPlus": true
+    },
+    {
+      "id": "facial",
+      "name": "Professional Radiant Facial",
+      "price": "45"
+    }
+  ]
+}

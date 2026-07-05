@@ -1,0 +1,6 @@
+{
+  "name": "Radhe Beauty",
+  "description": "An immersive digital flyer and creative studio workspace for Radhe Beauty Salon, featuring customizable paper styling, interactive service menus, client Polaroids, and seamless physical printouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
