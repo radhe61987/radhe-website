@@ -47,7 +47,7 @@
     },
     {
       "id": "henna-tattoo",
-      "name": "Intricate Henna Tattoo",
+      "name": "Henna Tattoo",
       "price": "15",
       "hasPlus": true
     },
@@ -56,11 +56,6 @@
       "name": "Sparkling Hair Tinsel",
       "price": "5",
       "hasPlus": true
-    },
-    {
-      "id": "facial",
-      "name": "Professional Radiant Facial",
-      "price": "45"
     }
   ]
 }
